@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Markdown from '../../components/Markdown.astro';
+
+export async function getStaticPaths() {
+    const posts = [
+        {
+            title: '1640 Labs Launch',
+            slug: '1640-labs-launch',
+            date: '2026-01-20',
+            content: `
+# 1640 Labs Launch
+
+Today marks a significant milestone as we officially launch **1640 Labs**. Our mission is to bridge the gap between complex technological advancements and practical business strategy.
+
+## What we do
+
+We specialize in strategic consulting, helping organizations navigate the rapidly evolving landscape of:
+
+- Distributed Systems
+- Scalable Architecture
+- Data Strategy
+- Operational Efficiency
+
+We believe that the best solutions are not just technically sound but are also aligned with the core business objectives.
+
+## Looking Forward
+
+This blog will serve as a hub for our research, insights, and case studies. Stay tuned for more deep dives into the technologies shaping our future.
+            `
+        },
+        {
+            title: 'Loonshot Ideas',
+            slug: 'loonshot-ideas',
+            date: '2026-01-15',
+            content: `
+# Loonshot Ideas
+
+Most breakthrough innovations were initially dismissed as "crazy" or "unrealistic." These are what Safi Bahcall calls *Loonshots*.
+
+## The Power of Fragility
+
+The most important ideas are often the most fragile. They require protected environments—"nurseries"—where they can be nurtured without the pressure of immediate commercial success or the scrutiny of traditional metrics.
+
+### Key Principles
+
+1.  **Separate the Phases**: Keep your "artists" (working on loonshots) and "soldiers" (maintaining the core business) distinct.
+2.  **Dynamic Equilibrium**: Ensure a constant flow of ideas and feedback between the two.
+3.  **Manage the Transfer**: The transition from idea to product is where most loonshots fail.
+
+In our consulting work, we help companies build the structures necessary to support these radical ideas while maintaining operational excellence.
+            `
+        },
+        {
+            title: 'Flux Capacity',
+            slug: 'flux-capacity',
+            date: '2026-01-10',
+            content: `
+# Flux Capacity: Scalability in Distributed Systems
+
+In distributed computing, "capacity" isn't a static number. It's a dynamic variable that changes with network latency, data consistency requirements, and hardware reliability. We call this *Flux Capacity*.
+
+## The Constraints
+
+When building for scale, you must consider:
+
+\`\`\`typescript
+interface SystemConstraints {
+  latency: number;
+  consistency: 'strong' | 'eventual' | 'causal';
+  throughput: number;
+}
+\`\`\`
+
+Scaling isn't just about adding more servers; it's about managing the overhead of coordination.
+
+### Lessons Learned
+
+- **Backpressure is essential**: Systems must be able to signal when they are overwhelmed.
+- **Observability over Monitoring**: Don't just watch for failures; understand the state of the entire system.
+- **Automate Recovery**: The goal is resilience, not just uptime.
+
+At 1640 Labs, we design systems that thrive in high-flux environments.
+            `
+        }
+    ];
+
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={`${post.title} | 1640 Labs`}>
+    <article class="max-w-3xl mx-auto py-12">
+        <header class="mb-8">
+            <a href="/blog" class="text-primary no-underline hover:underline mb-8 inline-block">&larr; Back to blog</a>
+            <time class="text-sm text-gray-400 block mb-2">{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+            <h1 class="mb-0">{post.title}</h1>
+        </header>
+        <Markdown content={post.content} />
+    </article>
+</Layout>
