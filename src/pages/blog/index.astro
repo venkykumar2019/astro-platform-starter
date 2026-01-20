@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const posts = [
+    {
+        title: '1640 Labs Launch',
+        slug: '1640-labs-launch',
+        description: 'Announcing the official launch of 1640 Labs, a strategic consulting firm for the modern era.',
+        date: '2026-01-20'
+    },
+    {
+        title: 'Loonshot Ideas',
+        slug: 'loonshot-ideas',
+        description: 'Exploring the radical ideas that seem crazy until they change the world.',
+        date: '2026-01-15'
+    },
+    {
+        title: 'Flux Capacity',
+        slug: 'flux-capacity',
+        description: 'Understanding the limits of scalability in modern distributed systems.',
+        date: '2026-01-10'
+    }
+];
+---
+
+<Layout title="Blog | 1640 Labs">
+    <div class="max-w-3xl mx-auto py-12">
+        <h1 class="mb-12">Blog</h1>
+        <div class="space-y-12">
+            {posts.map(post => (
+                <article class="group">
+                    <time class="text-sm text-gray-400 mb-2 block">{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+                    <h2 class="mb-3">
+                        <a href={`/blog/${post.slug}`} class="no-underline hover:text-primary transition-colors">
+                            {post.title}
+                        </a>
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-4">{post.description}</p>
+                    <a href={`/blog/${post.slug}`} class="text-primary font-semibold no-underline hover:underline">
+                        Read post &rarr;
+                    </a>
+                </article>
+            ))}
+        </div>
+    </div>
+</Layout>
